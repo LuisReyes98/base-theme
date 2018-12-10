@@ -1,31 +1,6 @@
 {% extends "base.html" %}
 
 {% block body %}
-  <style type="text/css">
-    .content__body{
-      margin: 0 10% 0 10%;
-    }
-
-    .link__main{
-      text-decoration: none;      
-    }
-
-    .link__main:hover{
-      text-decoration: none;
-    }
-
-    .link__main:visited{
-      text-decoration: none;
-    }
-    .list__main{
-      list-style: none;
-    }
-    .list__border{
-      border-color: #CCC;
-      border-width: 0px 0px 1px 0px;     
-    }
-
-  </style>
   <div class=" content-center flex mb-4 mt-4">
     <div class="content__body rounded bg-white shadow-lg w-full overflow-hidden">
       <div class="shadow-md bg-grey-lighter px-5 py-1 flex flex-wrap justify-between">        
@@ -40,8 +15,28 @@
           <li class="list__border px-1">
             {% set url = "/" ~ model ~ "/" ~ entry.uuid %}
             {% if entry.name %}
-              <a href="{{url}}"></a>
-              <span class="alt-name">{{entry.store}} : {{entry.uuid}}</span>
+              <div class="flex flex-col px-2 py-2">
+                <div class="flex flex-row">
+                  <p class="pr-2">
+                    Store 
+                    <p class="font-bold pr-1">
+                      {{entry.store}} :                  
+                    </p>                  
+                  </p>
+                </div>
+                <div class="flex flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row">
+                  <div class="w-4/5">
+                    <h3 > 
+                      {{entry.uuid}}
+                    </h3>                    
+                  </div>
+                  <div class="w-1/5">
+                    <a class=" ml-5 inline-block text-black link__main font-bold bg-blue rounded-full py-2 px-4 hover:bg-blue-dark hover:text-white" href="{{url}}">
+                      Show
+                    </a>                                    
+                  </div>
+                </div>                
+              </div>
             {% else %}
               <div class="flex flex-col px-2 py-2">
                 <div class="flex flex-row">
@@ -72,7 +67,9 @@
         {% endfor %}
       </ul>
       {% else %}
-      No documents
+      <h2>
+        No documents
+      </h2>      
       {% endif %}
 
       <div class="px-2 py-2 text-center">
