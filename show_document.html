@@ -1,35 +1,6 @@
 {% extends "base.html" %}
 
 {% block body %}
-  <style type="text/css">    
-    .content__body{
-      margin: 0 10% 0 10%;
-    }
-
-
-    .link__main{
-      text-decoration: none;
-      
-    }
-
-    .link__main:hover{
-      text-decoration: none;
-    }
-    .link__main:visited{
-      text-decoration: none;
-    }
-    
-    .fields__inner{
-      border-color: #FFF;
-      border-width: 1px;
-      color:#FFF;
-    }
-    .body__title{
-      border-color: #CCC;
-      border-width: 1px 0px 1px 0px;     
-    }    
-    
-  </style>
   <div class=" content-center flex mb-4 mt-4">
     <div class="content__body rounded bg-white shadow-lg w-full overflow-hidden">
       <div class="shadow-md bg-grey-lighter px-5 py-1">        
@@ -48,7 +19,6 @@
               <label class="w-3/4 py-2 px-2 rounded text-grey-darker leading-tight " for="{{key}}" id="{{key}}">
                 {{ value | safe }}                                    
               </label>
-              
             </div>
                                    
               
@@ -60,25 +30,51 @@
           <div id="content" class="container px-5 py-1"><pre>{{ body | safe }}</pre></div>
 
           {% if subdocuments %}
-            <h3>Subdocuments</h3>
-            {% for submodel, docs in subdocuments %}
-              <h4><a href="/{{model}}/{{id}}/{{submodel}}">{{ submodel | capitalize }}</a></h4>
-
-              <ul>
-                {% for entry in docs %}
-                  <li>
-                    {% set url = "/" ~ submodel ~ "/" ~ entry.uuid %}
-                    {% if entry.name %}
-                      <a href="{{url}}">{{entry.name}}</a>
-                      <span class="alt-name">{{entry.store}} : {{entry.uuid}}</span>
-                    {% else %}
-                      {{entry.store}} : <a href="{{url}}">{{entry.uuid}}</a>
-                    {% endif %}
-                  </li>
-                {% endfor %}
-              </ul>
-
-            {% endfor %}
+            <div class="px-5 py-2">
+              <h3>Subdocuments</h3>
+              {% for submodel, docs in subdocuments %}
+                <h4 class="">                  
+                  <a class="link__main text-black font-bold py-1 px-1 hover:text-blue" href="/{{model}}/{{id}}/{{submodel}}">
+                    {{ submodel | capitalize }} 
+                  </a>                                
+                </h4>                
+                <ul class="list__main">
+                  {% for entry in docs %}
+                    <li>
+                      {% set url = "/" ~ submodel ~ "/" ~ entry.uuid %}
+                      {% if entry.name %}
+                        <h4 class="" >
+                          <a class="link__main text-black font-bold py-1 px-1 hover:text-blue" href="{{url}}">
+                            {{entry.name}}
+                          </a>
+                        </h4>
+                        <div class="flex flex-wrap flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row">
+                          <span class="w-4/5 py-2 px-2 rounded text-grey-darker leading-tight">
+                            {{entry.store}} : {{entry.uuid}}
+                          </span>
+                          <div class="w-1/5">
+                            <a class="text-black text-sm link__main font-bold bg-blue rounded-full py-2 px-2 hover:bg-blue-dark hover:text-white " href="{{url}}"> 
+                              Show 
+                            </a>                                                       
+                          </div>
+                        </div>
+                      {% else %}
+                        <div class="flex flex-wrap flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row">
+                          <span class="w-4/5 py-2 px-2 rounded text-grey-darker leading-tight">
+                            {{entry.store}} : {{entry.uuid}}
+                          </span>
+                          <div class="w-1/5">
+                            <a class="text-black text-sm link__main font-bold bg-blue rounded-full py-2 px-2 hover:bg-blue-dark hover:text-white " href="{{url}}"> 
+                              Show 
+                            </a>                                                       
+                          </div>
+                        </div>
+                      {% endif %}
+                    </li>
+                  {% endfor %}
+                </ul>
+              {% endfor %}              
+            </div>
           {% endif %}          
         </div>
         <div class="text-center px-5 py-1">
