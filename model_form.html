@@ -1,65 +1,70 @@
 {% extends "base.html" %}
 
 {% block body %}
-  <style type="text/css">
-    .content__body{
-        margin: 0 10% 0 10%;
-    }
-    .textarea__main{
-
-      width: 100%;
-      height: 8em;
-    }
-
-    .body__title{
-      border-color: #CCC;
-      border-width: 1px 0px 1px 0px;     
-    }
-  </style>
   <div class="content-center flex mb-4 mt-4">
     <div class="content__body rounded bg-white shadow-lg w-full overflow-hidden">
-      <div class="shadow-md bg-grey-lighter px-5 py-1">
-        <h1>{{ TITLE }}</h1>
-        <strong>Store:</strong> {{ store | safe }} <br>        
-      </div>
-      <div >  
-        <div class="border-black px-5 py-2 shadow-inner">
-          <form method="POST" action="/">
+      <form method="POST" action="/">
+        <div class="shadow-md bg-grey-lighter px-5 py-1">
+          <h1>{{ TITLE }}</h1>
+          {% if store %}
+            <strong>Store:</strong> {{ store | safe }} <br>
+          {% endif %}
+        </div>
+        <div >  
+          <div class="border-black px-5 py-2 shadow-inner">
+            <div class=" ">
+              <h3>Fields</h3>
             <input type="hidden" name="model" value="{{model_name}}">
             {% if id %}
               <input type="hidden" name="id" value="{{id}}">
             {% endif %}
-            <div class=" ">
-              <h3>Fields</h3>
-              <div class="py-1 px-4 flex flex-wrap content-center align-middle flex-col">                
-                {% for key, value in fields %}
-                  <div class="py-1 w-full flex flex-wrap flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row">
-                    <label class="w-1/4 py-2 px-2" for="{{key}}">
-                      {{ key | safe | capitalize }}
-                    </label>                    
-                    <input class="w-3/4 py-2 px-2 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded  text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-black focus:text-black" type="string" name="fields.{{key}}" id="{{key}}" {% if fields %} value="{{ value | safe }}" {% endif %}>
+              <div class="py-1 px-4 flex flex-wrap content-center align-middle flex-col">  
+                {% if fields %}
+                  {% for key, value in fields %}
+                    <div class="py-1 w-full flex flex-wrap flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row">
+                      <label class="w-1/4 py-2 px-2" for="{{key}}">
+                        {{ key | safe | capitalize }}
+                      </label>                    
+                      <input class="w-3/4 py-2 px-2 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded  text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-black focus:text-black" type="string" name="fields.{{key}}" id="{{key}}" {% if fields %} value="{{ value | safe }}" {% endif %}>
 
-                  </div>
-                {% endfor %}               
+                    </div>
+                  {% endfor %}
+                {% else %}                                             
+                  {% for name, field_def in model.fields %}                                      
+                    <div class="py-1 w-full flex flex-wrap flex-col sm:flex-col md:flex-row lg:flex-row xl:flex-row">
+                      <label class="w-1/4 py-2 px-2" for="{{name}}">
+                        {{ name | capitalize }}
+                      </label>
+                      <input class="w-3/4 py-2 px-2 bg-grey-lighter appearance-none border-2 border-grey-lighter rounded  text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-black focus:text-black" type="string" name="fields.{{name}}" id="{{name}}" {% if fields %} value="{{fields[name]}}" {% endif %}>
+                    </div>              
+                  {% endfor %}                
+                
+                {% endif %}
+                
               </div>          
             </div>
-        </div>      
-          <div class="max-w-full ">
-           
-            <h3 class="body__title px-5 py-1">Body</h3>              
-            
-            <div class="px-5 py-1">              
-              <textarea class=" textarea__main bg-grey-lighter appearance-none border-2 border-grey-lighter rounded  text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-black focus:text-black" name="body">{% if body %}{{ body | safe }}{% endif %}</textarea>
+          </div>      
+          {% if fields or body %}
+            <div class="max-w-full ">
+             
+              <h3 class="body__title px-5 py-1">Body</h3>              
+              
+              <div class="px-5 py-1">              
+                <textarea class=" textarea__main bg-grey-lighter appearance-none border-2 border-grey-lighter rounded  text-grey-darker leading-tight focus:outline-none focus:bg-white focus:border-black focus:text-black" type="string"  name="fields.body" id="body" >        
+                {% if body %} 
+                  {{ body | safe }} 
+                {% endif %}      
+                </textarea>
+              </div>          
             </div>
-
+          {% endif%}
             
-          </div>
-          
           <div class="text-center px-5 py-1" >
             <button class="inline-block text-black font-bold bg-green rounded-full py-2 px-4 hover:bg-green-dark hover:text-white" type="submit">Create {{ model_name | safe }}</button>
           </div>
-        </form>    
-      </div>
+
+        </div>
+      </form>    
       
     </div>
   </div>
