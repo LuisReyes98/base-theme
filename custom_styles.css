@@ -2474,5 +2474,16 @@
     animation: unset !important;
     -webkit-transition: none !important;
     transition: none !important; } }
+.subscription__card {
+  border-radius: 0.25rem;
+  width: 25%;
+  height: auto;
+  transition: all 0.2s;
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  flex-shrink: 0; }
+  .subscription__card:hover {
+    z-index: 10;
+    transform: scale(1.15); }
 
 /*# sourceMappingURL=custom_styles.css.map */
