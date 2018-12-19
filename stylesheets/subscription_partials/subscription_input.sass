@@ -1,0 +1,21 @@
+.input__hidden
+  display: none
+  visibility: hidden
+
+#input-subscription-modal
+  &:checked
+    ~ #modal-container
+        @extend .animated
+        @extend .fadeIn
+        display: block
+        visibility: visible
+        animation-delay: 0s
+        -webkit-animation-delay: 0s
+        -moz-animation-delay: 0s
+        
+        #modal-content          
+          @extend .animated
+          @extend .zoomIn
+          animation-delay: 0.4s
+          -webkit-animation-delay: 0.4s
+          -moz-animation-delay: 0.4s
