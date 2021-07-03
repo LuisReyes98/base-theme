@@ -1,0 +1,61 @@
+.chat__main	
+	@extend .animated
+	@extend .fadeOutDown
+	animation-delay: 0.5s
+	animation-duration: 1s
+	border-width: 1
+	z-index: 1
+	transition: visibility 2s linear
+	visibility: hidden	
+	position: fixed	
+	right: 0
+	bottom: 0	
+	border-color: #CCC
+	height: auto
+	width: 20em
+
+	// &:hover
+	// 	@extend .animated
+	// 	@extend .doNothing
+	// 	visibility: visible
+	// 	display: block
+	// 	.chat__message , .new__message
+	// 		visibility: visible
+	// 		@extend .animated
+	// 		@extend .fadeInUp 
+
+	&:focus
+		visibility: visible
+		display: block
+		@extend .animated
+		@extend .doNothing 	
+		.chat__message , .new__message
+			visibility: visible
+			@extend .animated
+			@extend .fadeInUp 
+
+	.chat__message		
+		border-width: 0px 0px 1px 0px		
+		border-bottom-color: #000
+		height: auto
+		width: auto
+		visibility: hidden
+
+	.image__size
+		width: auto
+		height: 40px
+
+	.user__image__size
+		width: auto
+		height: 30px
+
+	.chat__box
+		overflow-y: scroll
+		height: 20em
+
+	.new__message
+		visibility: hidden		
+		.line
+			border-width: 1px 0px 0px 0px
+			height: 50%
+			border-color: #CC0000

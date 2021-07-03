@@ -1,0 +1,21 @@
+.chat__button
+	@extend .animated
+	@extend .fadeInUp 
+	cursor: pointer
+	position: fixed
+	transition: visibility 1.5s linear
+	right: 1em
+	bottom: 5px
+	
+	
+	&:focus
+		@extend .animated
+		@extend .fadeOutDown
+		animation-delay: 0s
+		animation-duration: 0.2s
+
+		+ .chat__main
+			@extend .animated
+			@extend .fadeInUp 
+			visibility: visible
+			display: block
